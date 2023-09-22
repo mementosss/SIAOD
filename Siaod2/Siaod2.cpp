@@ -125,14 +125,14 @@ void MyStruct::task6() {
         }
     }     */
     
-    vector<int> bit_array(size + 1, 0);
+    vector<int> bit_array(size + 1, 0); //заполняем массив нулями
     for (int i = 0; i < num_of_values; i++) {
         bit_array[array_of_values[i]] = 1;
     }
 
     cout << "Sorted array: ";
     auto start = chrono::high_resolution_clock::now();
-    for (int i = 0; i <= size; i++) {
+    for (int i = 0; i <= size; i++) { // устанавливаем 1 в соответстующем индексе
         if (bit_array[i] == 1) {
             cout << i << " ";
         }
