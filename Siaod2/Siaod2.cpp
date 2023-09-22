@@ -1,4 +1,6 @@
-﻿#include <vector>
+﻿#include <chrono>
+#include <random>
+#include <vector>
 #include <iostream>
 #include <bitset>
 using namespace std;
@@ -25,7 +27,6 @@ public:
     void task4();
     void task5();
     void task6();
-    void bitSort(vector<int>& arr);
 };
 
 
@@ -105,36 +106,39 @@ void MyStruct::task5() {
 }
 
 void MyStruct::task6() {
-    n;
+    int size = 9999999, num_of_values;
     cout << "Array size: ";
-    cin >> n;
+    cin >> num_of_values;
 
-    vector<int> arr(n);
-    for (i = 0; i < n; i++) {
+    vector<int> array_of_values(num_of_values);
+    random_device rd;
+    default_random_engine generator(rd());
+    uniform_int_distribution<int> distribution(1000000, 9999999);
+    for (int i = 0; i < num_of_values; i++) {
+        array_of_values[i] = distribution(generator);  // Автоматическое заполнение массива 7-значными случайными числами
+    }
+ /*   for (int i = 0; i < num_of_values; i++) {        // для ручного ввода
         cout << "Array element " << i << ": ";
-        cin >> arr[i];
+        cin >> array_of_values[i];
+        if (array_of_values[i] > size) {
+            size = array_of_values[i];
+        }
+    }     */
+    
+    vector<int> bit_array(size + 1, 0);
+    for (int i = 0; i < num_of_values; i++) {
+        bit_array[array_of_values[i]] = 1;
     }
 
-    cout << "Array: ";
-    for (i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
-
-    cout << "\nSorted array: ";
-    bitSort(arr);
-}
-
-void MyStruct::bitSort(vector<int>& arr) {
-    const int maxNum = 1000000; // Максимальное значение чисел в массиве
-    bitset<maxNum> bitSet;
-
-    for (i = 0; i < arr.size(); i++) {
-        bitSet.set(arr[i]); // Устанавливаем бит для каждого числа в массиве
-    }
-
-    for (i = 0; i < maxNum; i++) {
-        if (bitSet.test(i)) {
-            cout << i << " "; // Выводим числа в отсортированном порядке
+    cout << "Sorted array: ";
+    auto start = chrono::high_resolution_clock::now();
+    for (int i = 0; i <= size; i++) {
+        if (bit_array[i] == 1) {
+            cout << i << " ";
         }
     }
+    auto end = chrono::high_resolution_clock::now();  // Засекаем время после сортировки
+    chrono::duration<double> duration = end - start;  // Вычисляем продолжительность выполнения
+
+    cout << "\nTime: " << duration.count() << " sec" << endl;
 }
