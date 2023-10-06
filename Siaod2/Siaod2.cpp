@@ -31,10 +31,11 @@ public:
 
 
 int main() {
+    setlocale(LC_ALL, "Russian");
     int task;
     MyStruct obj;
 
-    cout << "Choose task 1 to 6: ";
+    cout << "выбери task 1 to 6: ";
     cin >> task;
 
     switch (task)
@@ -63,10 +64,12 @@ int main() {
 
 void MyStruct::task1() {
     value = 0xA111;
-    mask = 0xF111;
+    mask = (1 << 4) & (1 << 5) & (1 << 7) & (1 << 8);
+    //mask = 0xF111;
     result = value | mask;   // Применение поразрядной операции ИЛИ для установки битов в значение 1
     cout << "Value: " << value << "\nBinary: " << toBinary16(value) << endl;
     cout << "Result: " << result << "\nBinary: " << toBinary16(mask) << endl;
+    //mask = ~(1 << 4) & ~(1 << 5) & ~(1 << 7) & ~(1 << 8);
 }
 
 void MyStruct::task2() {
