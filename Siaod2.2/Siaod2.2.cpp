@@ -7,48 +7,48 @@ using namespace std;
 
 
 struct Railway {
-    char number[11]; // номер поезда
-    char out[10];    // пункт отправления
-    char in[10];     // пункт назначения
-    char time[6];    // время отправления
+    char number[11]; // РЅРѕРјРµСЂ РїРѕРµР·РґР°
+    char out[10];    // РїСѓРЅРєС‚ РѕС‚РїСЂР°РІР»РµРЅРёСЏ
+    char in[10];     // РїСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ
+    char time[6];    // РІСЂРµРјСЏ РѕС‚РїСЂР°РІР»РµРЅРёСЏ
 };
 
 void ConvertToBinary(const char* textFileName, const char* binaryFileName) {
     ifstream inputFile(textFileName);
     if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия текстового файла" << endl;
+        cerr << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
     ofstream outputFile(binaryFileName, ios::binary);
     if (!outputFile.is_open()) {
-        cerr << "Ошибка создания двоичного файла" << endl;
+        cerr << "РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
     Railway record;
     while (inputFile >> record.number >> record.out >> record.in >> record.time) {
-        //reinterpret_cast используется для преобразования указателя на объект record типа Railway к типу const char*.
-        //Это делается для того, чтобы функции read и write могли работать с данными структуры Railway в виде последовательности байтов.
+        //reinterpret_cast РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° РѕР±СЉРµРєС‚ record С‚РёРїР° Railway Рє С‚РёРїСѓ const char*.
+        //Р­С‚Рѕ РґРµР»Р°РµС‚СЃСЏ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ С„СѓРЅРєС†РёРё read Рё write РјРѕРіР»Рё СЂР°Р±РѕС‚Р°С‚СЊ СЃ РґР°РЅРЅС‹РјРё СЃС‚СЂСѓРєС‚СѓСЂС‹ Railway РІ РІРёРґРµ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё Р±Р°Р№С‚РѕРІ.
         outputFile.write(reinterpret_cast<const char*>(&record), sizeof(Railway));
     }
 
     inputFile.close();
     outputFile.close();
 
-    cout << "Преобразование завершено" << endl;
+    cout << "РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ Р·Р°РІРµСЂС€РµРЅРѕ" << endl;
 }
 
 void SaveToText(const char* binaryFileName, const char* textFileName) {
     ifstream inputFile(binaryFileName, ios::binary);
     if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия двоичного файла" << endl; //Поток cerr не буферизуется
+        cerr << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl; //РџРѕС‚РѕРє cerr РЅРµ Р±СѓС„РµСЂРёР·СѓРµС‚СЃСЏ
         return;
     }
 
     ofstream outputFile(textFileName);
     if (!outputFile.is_open()) {
-        cerr << "Ошибка создания текстового файла" << endl;
+        cerr << "РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
@@ -60,19 +60,19 @@ void SaveToText(const char* binaryFileName, const char* textFileName) {
     inputFile.close();
     outputFile.close();
 
-    cout << "Сохранение в текстовый файл завершено" << endl;
+    cout << "РЎРѕС…СЂР°РЅРµРЅРёРµ РІ С‚РµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» Р·Р°РІРµСЂС€РµРЅРѕ" << endl;
 }
 
 void PrintAllRecords(const char* binaryFileName) {
     ifstream inputFile(binaryFileName, ios::binary);
     if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия двоичного файла" << endl;
+        cerr << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
     Railway record;
     while (inputFile.read(reinterpret_cast<char*>(&record), sizeof(Railway))) {
-        cout << "Номер поезда: " << record.number << ", Пункт отправления: " << record.out << ", Пункт назначения: " << record.in << ", Время: " << record.time << endl;
+        cout << "РќРѕРјРµСЂ РїРѕРµР·РґР°: " << record.number << ", РџСѓРЅРєС‚ РѕС‚РїСЂР°РІР»РµРЅРёСЏ: " << record.out << ", РџСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ: " << record.in << ", Р’СЂРµРјСЏ: " << record.time << endl;
     }
 
     inputFile.close();
@@ -81,20 +81,20 @@ void PrintAllRecords(const char* binaryFileName) {
 void AccessRecordByIndex(const char* binaryFileName, int index) {
     ifstream inputFile(binaryFileName, ios::binary);
     if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия двоичного файла" << endl;
+        cerr << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
     Railway record;
-    //Функция seekg используется для перемещения указателя чтения в файле на указанный индекс.
-    //Указатель перемещается на позицию, соответствующую умноженному на размер структуры Railway. Это позволяет нам перейти к нужной записи в файле.
+    //Р¤СѓРЅРєС†РёСЏ seekg РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ СѓРєР°Р·Р°С‚РµР»СЏ С‡С‚РµРЅРёСЏ РІ С„Р°Р№Р»Рµ РЅР° СѓРєР°Р·Р°РЅРЅС‹Р№ РёРЅРґРµРєСЃ.
+    //РЈРєР°Р·Р°С‚РµР»СЊ РїРµСЂРµРјРµС‰Р°РµС‚СЃСЏ РЅР° РїРѕР·РёС†РёСЋ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ СѓРјРЅРѕР¶РµРЅРЅРѕРјСѓ РЅР° СЂР°Р·РјРµСЂ СЃС‚СЂСѓРєС‚СѓСЂС‹ Railway. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РЅР°Рј РїРµСЂРµР№С‚Рё Рє РЅСѓР¶РЅРѕР№ Р·Р°РїРёСЃРё РІ С„Р°Р№Р»Рµ.
     inputFile.seekg(index * sizeof(Railway));
 
     if (inputFile.read(reinterpret_cast<char*>(&record), sizeof(Railway))) {
-        cout << "Номер поезда: " << record.number << ", Пункт отправления: " << record.out << ", Пункт назначения: " << record.in << ", Время: " << record.time << endl;
+        cout << "РќРѕРјРµСЂ РїРѕРµР·РґР°: " << record.number << ", РџСѓРЅРєС‚ РѕС‚РїСЂР°РІР»РµРЅРёСЏ: " << record.out << ", РџСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ: " << record.in << ", Р’СЂРµРјСЏ: " << record.time << endl;
     }
     else {
-        cout << "Запись с указанным номером не найдена" << endl;
+        cout << "Р—Р°РїРёСЃСЊ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РЅРѕРјРµСЂРѕРј РЅРµ РЅР°Р№РґРµРЅР°" << endl;
     }
 
     inputFile.close();
@@ -104,11 +104,11 @@ void AccessRecordByIndex(const char* binaryFileName, int index) {
 void DeleteRecordByName(const char* binaryFileName, const char* outToDelete) {
     fstream inputFile(binaryFileName, ios::in | ios::binary);
     if (!inputFile) {
-        cerr << "Не удалось открыть файл" << endl;
+        cerr << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»" << endl;
         return;
     }
 
-    // Найдите позицию записи с заданным ключом
+    // РќР°Р№РґРёС‚Рµ РїРѕР·РёС†РёСЋ Р·Р°РїРёСЃРё СЃ Р·Р°РґР°РЅРЅС‹Рј РєР»СЋС‡РѕРј
     streampos position = -1;
     Railway record;
     streampos a = sizeof(record);
@@ -119,35 +119,35 @@ void DeleteRecordByName(const char* binaryFileName, const char* outToDelete) {
         }
     }
 
-    // Перейдите к позиции записи, которую нужно удалить
+    // РџРµСЂРµР№РґРёС‚Рµ Рє РїРѕР·РёС†РёРё Р·Р°РїРёСЃРё, РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ СѓРґР°Р»РёС‚СЊ
     if (position >= 0) {
         inputFile.seekg(position);
         inputFile.seekp(position);
 
-        // Прочтите последнюю запись файла и запомните ее позицию
+        // РџСЂРѕС‡С‚РёС‚Рµ РїРѕСЃР»РµРґРЅСЋСЋ Р·Р°РїРёСЃСЊ С„Р°Р№Р»Р° Рё Р·Р°РїРѕРјРЅРёС‚Рµ РµРµ РїРѕР·РёС†РёСЋ
         streampos lastPosition = inputFile.tellg();
         Railway lastRecord;
         inputFile.read(reinterpret_cast<char*>(&lastRecord), sizeof(lastRecord));
 
-        // Запишите последнюю запись на позицию удаляемой записи
+        // Р—Р°РїРёС€РёС‚Рµ РїРѕСЃР»РµРґРЅСЋСЋ Р·Р°РїРёСЃСЊ РЅР° РїРѕР·РёС†РёСЋ СѓРґР°Р»СЏРµРјРѕР№ Р·Р°РїРёСЃРё
         inputFile.seekp(position);
         inputFile.write(reinterpret_cast<const char*>(&lastRecord), sizeof(lastRecord));
 
-        // Увеличьте размер файла, чтобы отрезать последние записи
+        // РЈРІРµР»РёС‡СЊС‚Рµ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°, С‡С‚РѕР±С‹ РѕС‚СЂРµР·Р°С‚СЊ РїРѕСЃР»РµРґРЅРёРµ Р·Р°РїРёСЃРё
         inputFile.seekp(lastPosition);
         inputFile.close();
         ofstream truncateFile(binaryFileName, ios::trunc | ios::binary);
         truncateFile.close();
     }
     else {
-        cout << "Запись с заданным ключом не найдена" << endl;
+        cout << "Р—Р°РїРёСЃСЊ СЃ Р·Р°РґР°РЅРЅС‹Рј РєР»СЋС‡РѕРј РЅРµ РЅР°Р№РґРµРЅР°" << endl;
     }
 }
 
 void ListRailsByIn(const char* binaryFileName, const char* in) {
     ifstream inputFile(binaryFileName, ios::binary);
     if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия двоичного файла" << endl;
+        cerr << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl;
         return;
     }
 
@@ -155,34 +155,34 @@ void ListRailsByIn(const char* binaryFileName, const char* in) {
     bool found = false;
     while (inputFile.read(reinterpret_cast<char*>(&record), sizeof(Railway))) {
         if (strcmp(record.in, in) == 0) {
-            cout << "Номер поезда: " << record.number << ", Пункт отправления: " << record.out << ", Пункт назначения: " << record.in << ", Время: " << record.time << endl;
+            cout << "РќРѕРјРµСЂ РїРѕРµР·РґР°: " << record.number << ", РџСѓРЅРєС‚ РѕС‚РїСЂР°РІР»РµРЅРёСЏ: " << record.out << ", РџСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ: " << record.in << ", Р’СЂРµРјСЏ: " << record.time << endl;
             found = true;
         }
     }
 
     inputFile.close();
     if (!found) {
-        cout << "Поездов, отправляющихся в указанный пункт, не найдено" << endl;
+        cout << "РџРѕРµР·РґРѕРІ, РѕС‚РїСЂР°РІР»СЏСЋС‰РёС…СЃСЏ РІ СѓРєР°Р·Р°РЅРЅС‹Р№ РїСѓРЅРєС‚, РЅРµ РЅР°Р№РґРµРЅРѕ" << endl;
     }
 }
 
 int main() {
     setlocale(LC_ALL, "RUS");
     const char* binaryFileName = "Railway.dat";
-    char textFileName[100]; // Буфер для хранения имени текстового файла
-    cout << "Введите имя текстового файла: ";
+    char textFileName[100]; // Р‘СѓС„РµСЂ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРјРµРЅРё С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°
+    cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°: ";
     cin >> textFileName;
     int choice;
     while (true) {
-        cout << "Выберите операцию:" << endl;
-        cout << "1. Преобразовать текстовый файл в двоичный" << endl;
-        cout << "2. Сохранить двоичный файл в текстовый" << endl;
-        cout << "3. Вывести все записи из двоичного файла" << endl;
-        cout << "4. Доступ к записи по номеру" << endl;
-        cout << "5. Удалить сведения по указанному поезду" << endl;
-        cout << "6. Сформировать справку по поездам, отправляющимся в указанный пункт назначения" << endl;
-        cout << "7. Выход" << endl;
-        cout << "Введите номер операции: ";
+        cout << "Р’С‹Р±РµСЂРёС‚Рµ РѕРїРµСЂР°С†РёСЋ:" << endl;
+        cout << "1. РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ С‚РµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» РІ РґРІРѕРёС‡РЅС‹Р№" << endl;
+        cout << "2. РЎРѕС…СЂР°РЅРёС‚СЊ РґРІРѕРёС‡РЅС‹Р№ С„Р°Р№Р» РІ С‚РµРєСЃС‚РѕРІС‹Р№" << endl;
+        cout << "3. Р’С‹РІРµСЃС‚Рё РІСЃРµ Р·Р°РїРёСЃРё РёР· РґРІРѕРёС‡РЅРѕРіРѕ С„Р°Р№Р»Р°" << endl;
+        cout << "4. Р”РѕСЃС‚СѓРї Рє Р·Р°РїРёСЃРё РїРѕ РЅРѕРјРµСЂСѓ" << endl;
+        cout << "5. РЈРґР°Р»РёС‚СЊ СЃРІРµРґРµРЅРёСЏ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїРѕРµР·РґСѓ" << endl;
+        cout << "6. РЎС„РѕСЂРјРёСЂРѕРІР°С‚СЊ СЃРїСЂР°РІРєСѓ РїРѕ РїРѕРµР·РґР°Рј, РѕС‚РїСЂР°РІР»СЏСЋС‰РёРјСЃСЏ РІ СѓРєР°Р·Р°РЅРЅС‹Р№ РїСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ" << endl;
+        cout << "7. Р’С‹С…РѕРґ" << endl;
+        cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РѕРїРµСЂР°С†РёРё: ";
         cin >> choice;
         cout << endl;
         switch (choice) {
@@ -197,27 +197,27 @@ int main() {
             break;
         case 4:
             int index;
-            cout << "Введите номер записи: ";
+            cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р·Р°РїРёСЃРё: ";
             cin >> index;
             AccessRecordByIndex(binaryFileName, index);
             break;
         case 5:
             char outToDelete[50];
-            cout << "Введите номер поезда для удаления: ";
-            cin.ignore(); // Очистка буфера ввода перед чтением строки
+            cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РїРѕРµР·РґР° РґР»СЏ СѓРґР°Р»РµРЅРёСЏ: ";
+            cin.ignore(); // РћС‡РёСЃС‚РєР° Р±СѓС„РµСЂР° РІРІРѕРґР° РїРµСЂРµРґ С‡С‚РµРЅРёРµРј СЃС‚СЂРѕРєРё
             cin.getline(outToDelete, sizeof(outToDelete));
             DeleteRecordByName(binaryFileName, outToDelete);
             break;
         case 6:
             char in[3];
-            cout << "Введите пункт (5 букв): ";
+            cout << "Р’РІРµРґРёС‚Рµ РїСѓРЅРєС‚ (5 Р±СѓРєРІ): ";
             cin >> in;
             ListRailsByIn(binaryFileName, in);
             break;
         case 7:
             return 0;
         default:
-            cout << "Неверный выбор. Пожалуйста, выберите действие из списка." << endl;
+            cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ РёР· СЃРїРёСЃРєР°." << endl;
             break;
         }
         cout << endl;

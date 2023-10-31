@@ -130,7 +130,7 @@
     <ClCompile Include="Siaod2.2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\erati\Desktop\Railway.txt" />
+    <Text Include="Railway.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

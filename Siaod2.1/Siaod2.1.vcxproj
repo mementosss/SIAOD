@@ -19,15 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\erati\Desktop\New folder\Header.h" />
+    <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\erati\Desktop\New folder\Functions.cpp" />
-    <ClCompile Include="C:\Users\erati\Desktop\New folder\Main.cpp" />
+    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\erati\Desktop\New folder\input.txt" />
-    <Text Include="C:\Users\erati\Desktop\New folder\output.txt" />
+    <Text Include="input.txt" />
+    <Text Include="output.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
