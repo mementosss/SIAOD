@@ -66,7 +66,7 @@ void MyStruct::task1() {
     value = 0xA111;
     mask = (1 << 4) & (1 << 5) & (1 << 7) & (1 << 8);
     //mask = 0xF111;
-    result = value | mask;   // Применение поразрядной операции ИЛИ для установки битов в значение 1
+    result = value | mask;   // РџСЂРёРјРµРЅРµРЅРёРµ РїРѕСЂР°Р·СЂСЏРґРЅРѕР№ РѕРїРµСЂР°С†РёРё РР›Р РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё Р±РёС‚РѕРІ РІ Р·РЅР°С‡РµРЅРёРµ 1
     cout << "Value: " << value << "\nBinary: " << toBinary16(value) << endl;
     cout << "Result: " << result << "\nBinary: " << toBinary16(mask) << endl;
     //mask = ~(1 << 4) & ~(1 << 5) & ~(1 << 7) & ~(1 << 8);
@@ -74,7 +74,7 @@ void MyStruct::task1() {
 
 void MyStruct::task2() {
     cin >> value;
-    mask = ~(1 << 4) & ~(1 << 6); // Маска, которая обнуляет пятый и седьмой справа биты
+    mask = ~(1 << 4) & ~(1 << 6); // РњР°СЃРєР°, РєРѕС‚РѕСЂР°СЏ РѕР±РЅСѓР»СЏРµС‚ РїСЏС‚С‹Р№ Рё СЃРµРґСЊРјРѕР№ СЃРїСЂР°РІР° Р±РёС‚С‹
     result = value & mask;
     cout << "Value: " << value << "\nBinary: " << toBinary8(value) << endl;
     cout << "Result: " << result << "\nBinary: " << toBinary8(result) << endl;
@@ -99,10 +99,10 @@ void MyStruct::task5() {
     cout << "Enter the bit number to reset (from 0 to 31): ";
     cin >> n;
 
-    // Создание маски с установленным битом n
+    // РЎРѕР·РґР°РЅРёРµ РјР°СЃРєРё СЃ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹Рј Р±РёС‚РѕРј n
     mask = 1;
     mask = 1 << n;
-    // Обнуление n-ого бита числа с использованием маски
+    // РћР±РЅСѓР»РµРЅРёРµ n-РѕРіРѕ Р±РёС‚Р° С‡РёСЃР»Р° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РјР°СЃРєРё
     value = value & (~mask);
     cout << "Result: " << value << "\nBinary: " << toBinary16(value) << endl;
     cout << "Mask: " << mask << "\nBinary: " << toBinary16(mask) << endl;
@@ -118,9 +118,9 @@ void MyStruct::task6() {
     default_random_engine generator(rd());
     uniform_int_distribution<int> distribution(1000000, 9999999);
     for (int i = 0; i < num_of_values; i++) {
-        array_of_values[i] = distribution(generator);  // Автоматическое заполнение массива 7-значными случайными числами
+        array_of_values[i] = distribution(generator);  // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ Р·Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР° 7-Р·РЅР°С‡РЅС‹РјРё СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
     }
-    /*   for (int i = 0; i < num_of_values; i++) {        // для ручного ввода
+    /*   for (int i = 0; i < num_of_values; i++) {        // РґР»СЏ СЂСѓС‡РЅРѕРіРѕ РІРІРѕРґР°
            cout << "Array element " << i << ": ";
            cin >> array_of_values[i];
            if (array_of_values[i] > size) {
@@ -128,20 +128,20 @@ void MyStruct::task6() {
            }
        }     */
 
-    vector<int> bit_array(size + 1, 0); //заполняем массив нулями
+    vector<int> bit_array(size + 1, 0); //Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ РЅСѓР»СЏРјРё
     for (int i = 0; i < num_of_values; i++) {
         bit_array[array_of_values[i]] = 1;
     }
 
     cout << "Sorted array: ";
     auto start = chrono::high_resolution_clock::now();
-    for (int i = 0; i <= size; i++) { // устанавливаем 1 в соответстующем индексе
+    for (int i = 0; i <= size; i++) { // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј 1 РІ СЃРѕРѕС‚РІРµС‚СЃС‚СѓСЋС‰РµРј РёРЅРґРµРєСЃРµ
         if (bit_array[i] == 1) {
             cout << i << " ";
         }
     }
-    auto end = chrono::high_resolution_clock::now();  // Засекаем время после сортировки
-    chrono::duration<double> duration = end - start;  // Вычисляем продолжительность выполнения
+    auto end = chrono::high_resolution_clock::now();  // Р—Р°СЃРµРєР°РµРј РІСЂРµРјСЏ РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРІРєРё
+    chrono::duration<double> duration = end - start;  // Р’С‹С‡РёСЃР»СЏРµРј РїСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІС‹РїРѕР»РЅРµРЅРёСЏ
 
     cout << "\nTime: " << duration.count() << " sec" << endl;
 }
