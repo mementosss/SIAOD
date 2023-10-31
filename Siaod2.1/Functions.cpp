@@ -1,16 +1,16 @@
 #include "Header.h"
 
 void inFile(std::ofstream& fout, const char* inputFileName) {
-    std::cout << "Открытие и заполнение первого файла\n";
-    fout.open(inputFileName, std::ios::out | std::ios::trunc); //если файл уже существует, его содержимое будет удалено, а если файл не существует, будет создан новый файл.
+    std::cout << "РћС‚РєСЂС‹С‚РёРµ Рё Р·Р°РїРѕР»РЅРµРЅРёРµ РїРµСЂРІРѕРіРѕ С„Р°Р№Р»Р°\n";
+    fout.open(inputFileName, std::ios::out | std::ios::trunc); //РµСЃР»Рё С„Р°Р№Р» СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРµ Р±СѓРґРµС‚ СѓРґР°Р»РµРЅРѕ, Р° РµСЃР»Рё С„Р°Р№Р» РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, Р±СѓРґРµС‚ СЃРѕР·РґР°РЅ РЅРѕРІС‹Р№ С„Р°Р№Р».
     for (int i = 1; i <= 10; i++) {
         fout << i << std::endl;
     }
     if (fout.good()) {
-        std::cout << "  Ошибок не возникло\n";
+        std::cout << "  РћС€РёР±РѕРє РЅРµ РІРѕР·РЅРёРєР»Рѕ\n";
     }
     else {
-        std::cout << "   Ошибки возникли\n";
+        std::cout << "   РћС€РёР±РєРё РІРѕР·РЅРёРєР»Рё\n";
     }
     fout.close();
 }
@@ -27,22 +27,22 @@ void fileOutput(const char* inputFileName) {
 }
 void addNewLine(std::ofstream& fout, const char* inputFileName) {
     int x = 0;
-    std::cout << "Введите элемент, который хотите добавить: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ С…РѕС‚РёС‚Рµ РґРѕР±Р°РІРёС‚СЊ: ";
     std::cin >> x;
-    fout.open(inputFileName, std::ios::out | std::ios::app); // все данные будут добавляться в конец файла
+    fout.open(inputFileName, std::ios::out | std::ios::app); // РІСЃРµ РґР°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РґРѕР±Р°РІР»СЏС‚СЊСЃСЏ РІ РєРѕРЅРµС† С„Р°Р№Р»Р°
     fout << x;
     if (fout.good()) {
-        std::cout << "  Ошибок не возникло\n";
+        std::cout << "  РћС€РёР±РѕРє РЅРµ РІРѕР·РЅРёРєР»Рѕ\n";
     }
     else {
-        std::cout << "   Ошибки возникли\n";
+        std::cout << "   РћС€РёР±РєРё РІРѕР·РЅРёРєР»Рё\n";
     }
     fout.close();
 }
 
 void findNumbers(const char* inputFileName) {
     int nums = 0;
-    std::cout << "Введите порядковый номер в файле: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ С„Р°Р№Р»Рµ: ";
     std::cin >> nums;
     std::ifstream fout;
     fout.open(inputFileName);
@@ -56,7 +56,7 @@ void findNumbers(const char* inputFileName) {
     std::cout << x;
 
     if (fout.good()) {
-        std::cout << "  Ошибок не возникло\n";
+        std::cout << "  РћС€РёР±РѕРє РЅРµ РІРѕР·РЅРёРєР»Рѕ\n";
     }
     fout.close();
 }
@@ -68,19 +68,19 @@ void length_file(const char* inputFileName) {
     int x;
     std::cout << std::endl;
     while (!fout.eof()) {
-        fout >> x; //cчитывание значения из файла и присваивание его переменной x
-        fout.get(); //переход на новую строку
+        fout >> x; //cС‡РёС‚С‹РІР°РЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РёР· С„Р°Р№Р»Р° Рё РїСЂРёСЃРІР°РёРІР°РЅРёРµ РµРіРѕ РїРµСЂРµРјРµРЅРЅРѕР№ x
+        fout.get(); //РїРµСЂРµС…РѕРґ РЅР° РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
         n++;
     }
-    std::cout << "Количество чисел: " << n << std::endl;
+    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ С‡РёСЃРµР»: " << n << std::endl;
     fout.close();
 }
 
 void divideOddNumbersByAverage(const char* inputFileName, const char* outputFileName) {
-    std::cout << "  Открытие и заполнение второго файла: \n";
+    std::cout << "  РћС‚РєСЂС‹С‚РёРµ Рё Р·Р°РїРѕР»РЅРµРЅРёРµ РІС‚РѕСЂРѕРіРѕ С„Р°Р№Р»Р°: \n";
     std::ifstream inputFile(inputFileName);
     if (!inputFile.is_open()) {
-        std::cout << "Ошибка открытия исходного файла\n";
+        std::cout << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РёСЃС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°\n";
         return;
     }
 
@@ -94,21 +94,21 @@ void divideOddNumbersByAverage(const char* inputFileName, const char* outputFile
     }
     double average = sum / count;
 
-    // Переходим к началу файла
-    inputFile.clear(); //clear() позволяет сбросить любые флаги ошибок или состояния файла, чтобы файл снова стал доступным для чтения
-    //используется std::ios::beg второй аргумент, чтобы указать, что позиция должна быть установлена в начало файла
-    //Первый аргумент 0 указывает на смещение относительно начала файла
+    // РџРµСЂРµС…РѕРґРёРј Рє РЅР°С‡Р°Р»Сѓ С„Р°Р№Р»Р°
+    inputFile.clear(); //clear() РїРѕР·РІРѕР»СЏРµС‚ СЃР±СЂРѕСЃРёС‚СЊ Р»СЋР±С‹Рµ С„Р»Р°РіРё РѕС€РёР±РѕРє РёР»Рё СЃРѕСЃС‚РѕСЏРЅРёСЏ С„Р°Р№Р»Р°, С‡С‚РѕР±С‹ С„Р°Р№Р» СЃРЅРѕРІР° СЃС‚Р°Р» РґРѕСЃС‚СѓРїРЅС‹Рј РґР»СЏ С‡С‚РµРЅРёСЏ
+    //РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ std::ios::beg РІС‚РѕСЂРѕР№ Р°СЂРіСѓРјРµРЅС‚, С‡С‚РѕР±С‹ СѓРєР°Р·Р°С‚СЊ, С‡С‚Рѕ РїРѕР·РёС†РёСЏ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ СѓСЃС‚Р°РЅРѕРІР»РµРЅР° РІ РЅР°С‡Р°Р»Рѕ С„Р°Р№Р»Р°
+    //РџРµСЂРІС‹Р№ Р°СЂРіСѓРјРµРЅС‚ 0 СѓРєР°Р·С‹РІР°РµС‚ РЅР° СЃРјРµС‰РµРЅРёРµ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РЅР°С‡Р°Р»Р° С„Р°Р№Р»Р°
     inputFile.seekg(0, std::ios::beg);
 
     std::ofstream outputFile(outputFileName);
     if (!outputFile.is_open()) {
-        std::cout << "Ошибка открытия файла для записи\n";
+        std::cout << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїРёСЃРё\n";
         inputFile.close();
         return;
     }
 
     while (inputFile >> number) {
-        // Если число нечетное по абсолютной величине, делим его на среднее арифметическое и записываем в новый файл
+        // Р•СЃР»Рё С‡РёСЃР»Рѕ РЅРµС‡РµС‚РЅРѕРµ РїРѕ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РІРµР»РёС‡РёРЅРµ, РґРµР»РёРј РµРіРѕ РЅР° СЃСЂРµРґРЅРµРµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРµ Рё Р·Р°РїРёСЃС‹РІР°РµРј РІ РЅРѕРІС‹Р№ С„Р°Р№Р»
         if (std::abs(number) % 2 == 1) {
             double dividedValue = number / average;
             outputFile << dividedValue << " ";
@@ -119,12 +119,12 @@ void divideOddNumbersByAverage(const char* inputFileName, const char* outputFile
         }
     }
     if (outputFile.good()) {
-        std::cout << "\n  Ошибок не возникло\n";
+        std::cout << "\n  РћС€РёР±РѕРє РЅРµ РІРѕР·РЅРёРєР»Рѕ\n";
     }
     else {
-        std::cout << "   Ошибки возникли\n";
+        std::cout << "   РћС€РёР±РєРё РІРѕР·РЅРёРєР»Рё\n";
     }
     inputFile.close();
     outputFile.close();
-    std::cout << "\n///Завершение программы///\n";
+    std::cout << "\n///Р—Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹///\n";
 }
