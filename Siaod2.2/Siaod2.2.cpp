@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 struct Railway {
     char number[11]; // номер поезда
     char out[10];    // пункт отправления
