@@ -1,6 +1,7 @@
 #include <iostream>
+
 #include <fstream>
-#include <cstring>
+#include <string>
 
 using namespace std;
 
@@ -98,40 +99,47 @@ void AccessRecordByIndex(const char* binaryFileName, int index) {
     inputFile.close();
 }
 
+
 void DeleteRecordByName(const char* binaryFileName, const char* outToDelete) {
-    ifstream inputFile(binaryFileName, ios::binary);
-    if (!inputFile.is_open()) {
-        cerr << "Ошибка открытия двоичного файла" << endl;
-        return;
-    }
-    ofstream tempFile("temp.dat", ios::binary);
-    if (!tempFile.is_open()) {
-        cerr << "Ошибка создания временного файла" << endl;
+    fstream inputFile(binaryFileName, ios::in | ios::binary);
+    if (!inputFile) {
+        cerr << "Не удалось открыть файл" << endl;
         return;
     }
 
+    // Найдите позицию записи с заданным ключом
+    streampos position = -1;
     Railway record;
-    bool recordFound = false;
-    while (inputFile.read(reinterpret_cast<char*>(&record), sizeof(Railway))) {
-        if (strcmp(record.number, outToDelete) == 0) {
-            recordFound = true;
-        }
-        else {
-            tempFile.write(reinterpret_cast<const char*>(&record), sizeof(Railway)); //Если имена не совпадают, запись записывается во временный файл tempFile.
+    streampos a = sizeof(record);
+    while (inputFile.read(reinterpret_cast<char*>(&record), sizeof(record))) {
+        if ((strcmp(record.number, outToDelete) != 0)) {
+            position = inputFile.tellg() - a;
+            break;
         }
     }
 
-    inputFile.close();
-    tempFile.close();
+    // Перейдите к позиции записи, которую нужно удалить
+    if (position >= 0) {
+        inputFile.seekg(position);
+        inputFile.seekp(position);
 
-    if (recordFound) {
-        remove(binaryFileName); //исходный двоичный файл удаляется с помощью remove и временный файл переименовывается в исходное имя
-        rename("temp.dat", binaryFileName);
-        cout << "Запись с именем '" << outToDelete << "' удалена" << endl;
+        // Прочтите последнюю запись файла и запомните ее позицию
+        streampos lastPosition = inputFile.tellg();
+        Railway lastRecord;
+        inputFile.read(reinterpret_cast<char*>(&lastRecord), sizeof(lastRecord));
+
+        // Запишите последнюю запись на позицию удаляемой записи
+        inputFile.seekp(position);
+        inputFile.write(reinterpret_cast<const char*>(&lastRecord), sizeof(lastRecord));
+
+        // Увеличьте размер файла, чтобы отрезать последние записи
+        inputFile.seekp(lastPosition);
+        inputFile.close();
+        ofstream truncateFile(binaryFileName, ios::trunc | ios::binary);
+        truncateFile.close();
     }
     else {
-        remove("temp.dat");
-        cout << "Запись с именем '" << outToDelete << "' не найдена" << endl;
+        cout << "Запись с заданным ключом не найдена" << endl;
     }
 }
 
